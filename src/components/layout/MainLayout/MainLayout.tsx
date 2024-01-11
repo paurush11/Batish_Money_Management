@@ -1,7 +1,7 @@
 import React from 'react'
 import { AddBills } from './AddBills/AddBills';
 import { Goals } from './Goals';
-import { Home } from './Home';
+import { Home } from './Home/Home';
 import { MonthlySpending } from './MonthlySpending';
 import { useSidebar } from '@/store/use-sidebar';
 import { cn } from '@/lib/utils';
@@ -27,10 +27,6 @@ export const MainLayout: React.FC = ({ }) => {
             <div className={cn("hidden", value === 3 && "block")}>
                 <MonthlySpending />
             </div>
-
-
-
-
         </div>
     );
 }

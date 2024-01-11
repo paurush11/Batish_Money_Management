@@ -27,8 +27,6 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { IAddBillSidebar } from "./AddBillsSidebar";
-import { useEffect } from "react";
 const earliestDate = new Date('2000-01-01');
 const today = new Date();
 const tomorrow = new Date(today);
@@ -89,9 +87,9 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
             amount: 0,
             dueDate: today,
             frequency: "monthly",
-            category: "other",
+            category: "utilities",
             paymentStatus: "paid",
-            paymentMethod: "cash",
+            paymentMethod: "credit card",
             reminders: false,
             notes: "",
             automaticBillDetection: false,
@@ -100,8 +98,9 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
         },
     })
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+
         try {
+            console.log(values)
             toast({
                 title: "New Bill Added",
                 variant: "primary",
@@ -162,7 +161,9 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                             <Input placeholder="Phone Bill December" {...field}
                                 onChange={(e) => {
                                     handleAmountChange(e.target.value)
-                                    return field.onChange(parseFloat(e.target.value))
+                                    if (e.target.value)
+                                        return field.onChange(parseFloat(e.target.value))
+                                    else return field.onChange(0)
                                 }} />
                         </FormControl>
                     </div>
@@ -251,8 +252,8 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                         <FormControl>
                             <RadioGroup onValueChange={(e) => {
                                 handleFrequencyChange(e)
-                                return field.onChange
-                            }} defaultValue={field.value} className="flex flex-col space-y-2 flex-1" >
+                                return field.onChange(e)
+                            }} defaultValue={"monthly"} className="flex flex-col space-y-2 flex-1" >
                                 <FormItem className="items-center justify-start space-x-3 space-y-0 flex">
                                     <FormControl>
                                         <RadioGroupItem value={"monthly"} />
@@ -295,8 +296,8 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                         <FormControl>
                             <RadioGroup onValueChange={(e) => {
                                 handleCategoryChange(e)
-                                return field.onChange
-                            }} defaultValue={field.value} className="flex flex-col space-y-2 flex-1" >
+                                return field.onChange(e)
+                            }} defaultValue={"utilities"} className="flex flex-col space-y-2 flex-1" >
                                 <FormItem className="items-center justify-start space-x-3 space-y-0 flex">
                                     <FormControl>
                                         <RadioGroupItem value={"utilities"} />
@@ -345,8 +346,8 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                         <FormControl>
                             <RadioGroup onValueChange={(e) => {
                                 handlePaymentStatusChange(e)
-                                return field.onChange
-                            }} defaultValue={field.value} className="flex flex-col space-y-2 flex-1" >
+                                return field.onChange(e)
+                            }} defaultValue={"paid"} className="flex flex-col space-y-2 flex-1" >
                                 <FormItem className="items-center justify-start space-x-3 space-y-0 flex">
                                     <FormControl>
                                         <RadioGroupItem value={"paid"} />
@@ -389,8 +390,8 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                         <FormControl>
                             <RadioGroup onValueChange={(e) => {
                                 handlePaymentMethodChange(e)
-                                return field.onChange
-                            }} defaultValue={field.value} className="flex flex-col space-y-2 flex-1" >
+                                return field.onChange(e)
+                            }} defaultValue={"credit card"} className="flex flex-col space-y-2 flex-1" >
                                 <FormItem className="items-center justify-start space-x-3 space-y-0 flex">
                                     <FormControl>
                                         <RadioGroupItem value={"credit card"} />
