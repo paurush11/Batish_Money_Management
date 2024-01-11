@@ -17,6 +17,9 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ['media.licdn.com', 'other-domain.com'],
+  },
 };
 
 export default config;
