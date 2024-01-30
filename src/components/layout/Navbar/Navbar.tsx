@@ -1,6 +1,6 @@
 import React from "react";
 import { Search } from "./Search";
-export const Navbar: React.FC = ({ }) => {
+export const Navbar: React.FC = ({}) => {
   return (
     <div
       className="flex 
@@ -8,13 +8,12 @@ export const Navbar: React.FC = ({ }) => {
         flex-1
         items-center  
         justify-between 
-        p-4 border-b-2"
+        border-b-2 p-4"
     >
-      <div className="text-primary font-bold font-mono text-2xl">
+      <div className="font-mono text-2xl font-bold text-primary">
         Batish Money Manager
       </div>
       <Search />
-
     </div>
   );
 };

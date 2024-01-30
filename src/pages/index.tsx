@@ -1,14 +1,13 @@
-import { MainLayout } from "@/components/layout/MainLayout/MainLayout";
-import { Navbar } from "@/components/layout/Navbar/Navbar";
-import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col ">
-      <Navbar />
+const IndexPage = () => {
+  const router = useRouter();
 
-      <Sidebar />
-      <MainLayout />
-    </div>
-  );
-}
+  useEffect(() => {
+    router.replace("/home"); // Replace with your default section
+  }, [router]);
+
+  return null; // Render nothing or a loading spinner
+};
+export default IndexPage;

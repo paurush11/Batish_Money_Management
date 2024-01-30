@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export const Balance: React.FC = ({ }) => {
-    return (
-        <div className="flex">
-
-        </div>
-    );
-}
+export const Balance: React.FC = ({}) => {
+  return <div className="flex"></div>;
+};
