@@ -32,4 +32,22 @@ export type IHomeData = IActivity & {
   tatti: string;
 };
 
+export interface IUser {
+  id?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  userName: string;
+  role: "USER" | "ADMIN";
+}
+export type TToken = string | null;
+export interface IAuthContextType {
+  user: IUser | null;
+  token: string | null;
+  register: (userData: IUser) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+}
 export type TSection = "home" | "add-bills" | "goals" | "monthly-spending";

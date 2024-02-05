@@ -2,6 +2,7 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 import "@/styles/globals.css";
+import { AuthProvider } from "@/lib/AuthProvider";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -9,7 +10,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </SessionProvider>
   );
 };
