@@ -42,12 +42,24 @@ export interface IUser {
   userName: string;
   role: "USER" | "ADMIN";
 }
+export interface ILogin {
+  password: string;
+  userName: string;
+}
 export type TToken = string | null;
 export interface IAuthContextType {
   user: IUser | null;
   token: string | null;
-  register: (userData: IUser) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
+  register: (userData: IUser) => Promise<void> | Promise<TcustomError | null>;
+  login: (userData: ILogin) => Promise<void> | Promise<TcustomError | null>;
   logout: () => void;
 }
+
+export type TcustomError = {
+  message: String;
+};
 export type TSection = "home" | "add-bills" | "goals" | "monthly-spending";
+
+export const passwordRegex = new RegExp("");
+export const phoneNumberFirstRegex = new RegExp("");
+export const phoneNumberLastRegex = new RegExp("");

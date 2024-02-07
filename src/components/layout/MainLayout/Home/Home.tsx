@@ -1,5 +1,5 @@
 import { data } from "@/data";
-import { Get_Home_Data_URL, dummyUrl } from "@/server/REST_API_Const";
+// import { Get_Home_Data_URL, dummyUrl } from "@/server/REST_API_Const";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import React from "react";
@@ -32,15 +32,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
   let catData: ICatData[] = [];
   let tatti = "";
   try {
-    const response = await axios.get(Get_Home_Data_URL);
-    const response2 = await axios.get(dummyUrl);
+    // const response = await axios.get(Get_Home_Data_URL);
+    // const response2 = await axios.get(dummyUrl);
 
-    if (response2.data && response2.data.message) {
-      tatti = response2.data.message;
-      console.log("hi" + response2.data);
-    } else {
-      console.log("Message property not found in response:", response2.data);
-    }
+    // if (response2.data && response2.data.message) {
+    //   tatti = response2.data.message;
+    //   console.log("hi" + response2.data);
+    // } else {
+    //   console.log("Message property not found in response:", response2.data);
+    // }
     // response.data
     parsedData = data;
     //   .map((d) => {

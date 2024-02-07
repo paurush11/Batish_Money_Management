@@ -1,14 +1,14 @@
-const USERS = "localhost:8080/users/";
-const GET_USER_BY_EMAIL_OR_ID = "localhost:8080/users/"; // + ID OR EMAIL
-const GET_USER_BY_USERNAME = "localhost:8080/users/user"; // + ID OR EMAIL
-const REGISTER = "localhost:8080/api/v1/auth/register";
-const AUTHENTICATE = "localhost:8080/api/v1/auth/authenticate";
-const GET_ALL_EXPENSES = "localhost:8080/expenses/";
-const ADD_EXPENSE = "localhost:8080/expenses/";
-const ADD_EXPENSES = "localhost:8080/expenses/all/";
-const GET_EXPENSE_BY_OR_ID = "localhost:8080/expenses/"; // + ID
-const EDIT_EXPENSE_BY_OR_ID = "localhost:8080/expenses/"; // + ID
-const DELETE_EXPENSE_BY_OR_ID = "localhost:8080/expenses/"; // + ID
+const USERS = "http://localhost:8080/users/";
+const GET_USER_BY_EMAIL_OR_ID = "http://localhost:8080/users/"; // + ID OR EMAIL
+const GET_USER_BY_USERNAME = "http://localhost:8080/users/user"; // + ID OR EMAIL
+const REGISTER = "http://localhost:8080/api/v1/auth/register";
+const AUTHENTICATE = "http://localhost:8080/api/v1/auth/authenticate";
+const GET_ALL_EXPENSES = "http://localhost:8080/expenses/";
+const ADD_EXPENSE = "http://localhost:8080/expenses/";
+const ADD_EXPENSES = "http://localhost:8080/expenses/all/";
+const GET_EXPENSE_BY_OR_ID = "http://localhost:8080/expenses/"; // + ID
+const EDIT_EXPENSE_BY_OR_ID = "http://localhost:8080/expenses/"; // + ID
+const DELETE_EXPENSE_BY_OR_ID = "http://localhost:8080/expenses/"; // + ID
 
 export {
   USERS,
