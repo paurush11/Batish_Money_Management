@@ -30,7 +30,7 @@ import { CalendarIcon } from "lucide-react";
 const earliestDate = new Date("2000-01-01");
 const today = new Date();
 const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
+tomorrow.setDate(tomorrow.getDate() + 30);
 const formSchema = z.object({
   name: z
     .string()
@@ -46,7 +46,7 @@ const formSchema = z.object({
       message: "Bill amount can't be negative",
     })
     .positive(),
-  dueDate: z.date().refine((date) => date > earliestDate && date < tomorrow, {
+  dueDate: z.date().refine((date) => date > earliestDate && date <= tomorrow, {
     message: "date cannot go before 2000 and after today",
   }),
   frequency: z.enum(["monthly", "quarterly", "annually"]),
@@ -222,10 +222,12 @@ export const AddBillsForm: React.FC<TAddBillsForm> = ({
                       selected={field.value}
                       onSelect={(e) => {
                         handleDueDateChange(e?.toDateString() || "");
-                        return field.onChange;
+                        if (e) {
+                          return (field.value = e);
+                        }
                       }}
                       disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
+                        date < new Date("1900-01-01") || date > tomorrow
                       }
                       initialFocus
                     />

@@ -8,7 +8,11 @@ import {
 } from "./Interfaces";
 import useAuthStore from "@/store/jwt-token";
 import axios from "axios";
-import { AUTHENTICATE, GET_USER_BY_USERNAME, REGISTER } from "@/server/REST_API_Const";
+import {
+  AUTHENTICATE,
+  GET_USER_BY_USERNAME,
+  REGISTER,
+} from "@/server/REST_API_Const";
 import { useRouter } from "next/router";
 
 const defaultContextValue: IAuthContextType = {
@@ -68,9 +72,9 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
         GET_USER_BY_USERNAME + `/${userData.userName}`,
         {
           headers: {
-            Authorization: `Bearer ${response.data.token}`
-          }
-        }
+            Authorization: `Bearer ${response.data.token}`,
+          },
+        },
       );
       setUser(user.data);
     }

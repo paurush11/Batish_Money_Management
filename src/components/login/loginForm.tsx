@@ -105,7 +105,7 @@ export const LoginForm: React.FC<TLoginFormProps> = ({}) => {
     };
     try {
       const res = await context?.login(requiredValues);
-      
+
       if (res && res.message) {
         toast({
           title: "Error in Registering User",

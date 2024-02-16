@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 const IndexPage = () => {
   const router = useRouter();
   const context = useContext(AuthContext);
-  console.log(context)
+  console.log(context);
   useEffect(() => {
     if (context?.user)
       router.replace("/home"); // Replace with your default section

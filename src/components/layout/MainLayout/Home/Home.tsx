@@ -42,27 +42,26 @@ export const getServerSideProps: GetServerSideProps = async () => {
     //   console.log("Message property not found in response:", response2.data);
     // }
     // response.data
-    parsedData = data;
-    //   .map((d) => {
-    //     const correctDate = new Date(d.dueDate);
-    //     return { ...d, dueDate: correctDate.toLocaleDateString() };
-    //   })
-    //   .filter((d, index) => index < 10);
-    // const totalByCategory = parsedData.reduce(
-    //   (acc: { [key: string]: number }, item) => {
-    //     var value = (acc[item.category] || 0) + item.amount;
-    //     acc[item.category] = parseFloat(value.toFixed(2));
-    //     return acc;
-    //   },
-    //   {},
-    // );
-    // Object.entries(totalByCategory).forEach(([value, amt]) => {
-    //   catData.push({
-    //     name: value.toUpperCase(),
-    //     amount: amt,
-    //   });
-    // });
-    // catData.sort((a, b) => b.amount - a.amount);
+    parsedData = data.map((d) => {
+      const correctDate = new Date(d.dueDate);
+      return { ...d, dueDate: correctDate.toLocaleDateString() };
+    })
+      .filter((d, index) => index < 10);
+    const totalByCategory = parsedData.reduce(
+      (acc: { [key: string]: number }, item) => {
+        var value = (acc[item.category] || 0) + item.amount;
+        acc[item.category] = parseFloat(value.toFixed(2));
+        return acc;
+      },
+      {},
+    );
+    Object.entries(totalByCategory).forEach(([value, amt]) => {
+      catData.push({
+        name: value.toUpperCase(),
+        amount: amt,
+      });
+    });
+    catData.sort((a, b) => b.amount - a.amount);
   } catch (err) {
     console.error(err);
   }
