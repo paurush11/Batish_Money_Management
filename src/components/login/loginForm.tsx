@@ -35,7 +35,7 @@ const formSchema = z.object({
     }),
   // .regex(passwordRegex),
 });
-export const LoginForm: React.FC<TLoginFormProps> = ({}) => {
+export const LoginForm: React.FC<TLoginFormProps> = ({ }) => {
   const router = useRouter();
   const context = useContext(AuthContext);
   const { toast } = useToast();
@@ -105,7 +105,6 @@ export const LoginForm: React.FC<TLoginFormProps> = ({}) => {
     };
     try {
       const res = await context?.login(requiredValues);
-
       if (res && res.message) {
         toast({
           title: "Error in Registering User",
@@ -115,13 +114,13 @@ export const LoginForm: React.FC<TLoginFormProps> = ({}) => {
         router.replace("/register");
         return;
       }
-      console.log(context.user);
-      console.log(context.token);
+     
       toast({
         title: "New User Added",
         variant: "primary",
         description: `New User Named ${values.username} has been added Successfully`,
       });
+     
       router.replace("/home");
       return;
     } catch (e: any) {

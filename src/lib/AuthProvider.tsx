@@ -1,19 +1,7 @@
-import React, { createContext, useContext, useState } from "react";
-import {
-  IAuthContextType,
-  ILogin,
-  IUser,
-  TToken,
-  TcustomError,
-} from "./Interfaces";
 import useAuthStore from "@/store/jwt-token";
 import axios from "axios";
-import {
-  AUTHENTICATE,
-  GET_USER_BY_USERNAME,
-  REGISTER,
-} from "@/server/REST_API_Const";
-import { useRouter } from "next/router";
+import React, { createContext } from "react";
+import { IAuthContextType, ILogin, IUser, TcustomError } from "./Interfaces";
 
 const defaultContextValue: IAuthContextType = {
   user: null, // or a default user object
@@ -24,7 +12,7 @@ const defaultContextValue: IAuthContextType = {
   login: async () => {
     // Default no-op implementation
   },
-  logout: () => {
+  logout: async () => {
     // Default no-op implementation
   },
 };
@@ -44,54 +32,49 @@ const noUserError: TcustomError = {
 export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   const { user, token, setToken, setUser, clearAuth } = useAuthStore();
   const register = async (userData: IUser) => {
-    // Implement registration logic
-    // On successful registration, set the user and token
     const body = userData;
-    const response = await axios.post(REGISTER, body);
+    const response = await axios.post("/api/register", body);
     if (response.data && response.data.token) {
       setToken(response.data.token);
       setUser(userData);
-    }
-    console.log(response);
-    if (response.data && response.data.existedBefore) {
-      // do something
-      return sameUserError;
+      if (response.data.existedBefore) {
+        return sameUserError;
+      }
     }
     return null;
   };
 
   const login = async (userData: ILogin) => {
-    // Implement login logic
-    // On successful login, set the user and token
     const body = userData;
-    const response = await axios.post(AUTHENTICATE, body);
-    console.log(response);
-    if (response.data && response.data.token) {
-      setToken(response.data.token);
-      const user = await axios.get(
-        GET_USER_BY_USERNAME + `/${userData.userName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${response.data.token}`,
-          },
-        },
-      );
-      setUser(user.data);
+    try {
+      const response = await axios.post("/api/login", body);
+      // Post to your API route
+      if (response.data) {
+
+        // Assuming the API returns user data on successful login
+        setUser(response.data.user);
+        setToken(response.data.token);
+        // For security reasons, don't set HttpOnly tokens in client-side JS
+        // You just maintain application state as needed
+      } else {
+        return noUserError;
+      }
+    } catch (error) {
+
+      console.error("Login error:", error);
+      // Handle error (e.g., display an error message)
     }
 
-    if (response.data && !response.data.existedBefore) {
-      // do something
-      return noUserError;
-    }
-
-    return null;
-    // setUser(loggedInUser);
-    // setToken(receivedToken);
+    return null; // Or indicate success/failure as needed
   };
-
-  const logout = () => {
+  const logout = async () => {
     // Clear user and token on logout
-    clearAuth();
+    try {
+      await axios.post("/api/logout");
+      clearAuth();
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (

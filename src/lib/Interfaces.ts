@@ -12,7 +12,31 @@ export interface IParsedData {
   alertsForPriceChanges: boolean;
   customizableView: string;
 }
-
+export interface IExpenseUserSplits {
+  userId: number;
+  splitAmount: number;
+}
+export type TFrequency = "monthly" | "quarterly" | "annually";
+export type TPaymentMethod = "credit_card" | "bank_transfer" | "cash" | "other";
+export type TPaymentStatus = "paid" | "unpaid" | "partial";
+export type TCategory = "utilities" | "rent" | "insurance" | "other";
+export type TRole = "USER" | "ADMIN";
+export interface IExpenseData {
+  id: number;
+  createdById: number;
+  dueDate: string;
+  name: string;
+  amount: number;
+  frequency: TFrequency;
+  category: TCategory;
+  paymentStatus: TPaymentStatus;
+  paymentMethod: TPaymentMethod;
+  reminders: boolean;
+  notes: string;
+  automaticBillDetection: boolean;
+  alertsForPriceChanges: boolean;
+  userSplits: [IExpenseUserSplits];
+}
 export interface ICatData {
   name: string;
   amount: number;
@@ -29,11 +53,11 @@ export interface IBarChartProps {
 
 export type ITopSummary = IActivity;
 export type IHomeData = IActivity & {
-  tatti: string;
+  userData: IUser;
 };
 
 export interface IUser {
-  id?: number;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -41,6 +65,8 @@ export interface IUser {
   phoneNumber: string;
   userName: string;
   role: "USER" | "ADMIN";
+  expensesIds?: Set<number>;
+  friendsIds?: Set<number>;
 }
 export interface ILogin {
   password: string;
@@ -52,7 +78,7 @@ export interface IAuthContextType {
   token: string | null;
   register: (userData: IUser) => Promise<void> | Promise<TcustomError | null>;
   login: (userData: ILogin) => Promise<void> | Promise<TcustomError | null>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 export type TcustomError = {

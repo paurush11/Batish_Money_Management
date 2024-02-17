@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Search } from "./Search";
 import useAuthStore from "@/store/jwt-token";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
 import Router from "next/router";
+import { AuthContext } from "@/lib/AuthProvider";
 export const Navbar: React.FC = ({ }) => {
-  const { user, clearAuth } = useAuthStore()
-  const router = Router
+  const { user, logout } = useContext(AuthContext)
+  const router = Router;
   const [name, setName] = useState("");
-  useEffect(
-    () => {
-      if (user) {
-        setName(", " + user?.firstName.charAt(0).toUpperCase() + user?.firstName.substring(1))
-      }
-    }, [user]
-  )
-  const logout = async () => {
-    clearAuth();
-    setName("");
+  const handleLogout = async () => {
+    await logout();
     router.replace("/login")
   }
+  useEffect(() => {
+    if (user) {
+      setName(
+        ", " +
+        user?.firstName.charAt(0).toUpperCase() +
+        user?.firstName.substring(1),
+      );
+    }
+  }, [user]);
   return (
     <div
       className="flex 
@@ -38,10 +40,9 @@ export const Navbar: React.FC = ({ }) => {
       <Search />
       <div className="flex pl-4">
         <Button variant="outline" size="icon">
-          <LogOutIcon onClick={logout} />
+          <LogOutIcon onClick={handleLogout} />
         </Button>
       </div>
-
     </div>
   );
 };

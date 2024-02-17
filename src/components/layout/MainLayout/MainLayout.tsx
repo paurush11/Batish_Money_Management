@@ -1,22 +1,22 @@
+import { IExpenseData, TSection } from "@/lib/Interfaces";
+import { cn } from "@/lib/utils";
+import { useSidebar } from "@/store/use-sidebar";
+import { useRouter } from "next/router";
 import React from "react";
 import { AddBills } from "./AddBills/AddBills";
 import { Goals } from "./Goals";
-import { Home } from "./Home/Home";
 import { MonthlySpending } from "./MonthlySpending";
-import { useSidebar } from "@/store/use-sidebar";
-import { cn } from "@/lib/utils";
-import { useMainContent } from "@/store/main-content";
-import { useRouter } from "next/router";
-import { TSection } from "@/lib/Interfaces";
 
 interface MainLayout {
-  data: any;
+  UserExpensesData: IExpenseData[];
 }
 
-export const MainLayout: React.FC<MainLayout> = ({ data }) => {
+export const MainLayout: React.FC<MainLayout> = ({ UserExpensesData }) => {
   const { collapsed } = useSidebar((state) => state);
   const router = useRouter();
   const { section } = router.query;
+  console.log(UserExpensesData);
+
   return (
     <div className={cn("ml-72 flex flex-col", collapsed && "ml-16")}>
       <div
@@ -25,13 +25,13 @@ export const MainLayout: React.FC<MainLayout> = ({ data }) => {
           (section as String as TSection) === "home" && "block",
         )}
       >
-        {data && (
+        {/* {data && (
           <Home
             parsedData={data?.data?.parsedData}
             catData={data?.data?.catData}
             tatti={""}
           />
-        )}
+        )} */}
       </div>
       <div
         className={cn(

@@ -1,17 +1,32 @@
-import { AuthContext } from "@/lib/AuthProvider";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { parseCookies } from "nookies";
+import { useEffect } from "react";
 
-const IndexPage = () => {
+type TIndexPage = {
+  authToken: string;
+};
+const IndexPage = ({ authToken }: TIndexPage) => {
   const router = useRouter();
-  const context = useContext(AuthContext);
-  console.log(context);
+  console.log(authToken);
   useEffect(() => {
-    if (context?.user)
-      router.replace("/home"); // Replace with your default section
-    else router.replace("/register");
-  }, [router]);
+    if (!authToken) {
+      router.replace("/login");
+    } else {
+      router.replace("/home");
+    }
+  }, [authToken, router]);
 
-  return null; // Render nothing or a loading spinner
+  return <div>Loading...</div>;
+};
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = parseCookies(context);
+  const authToken = cookies.authToken;
+
+  return {
+    props: {
+      authToken, // You can pass this to the page if needed
+    },
+  };
 };
 export default IndexPage;
