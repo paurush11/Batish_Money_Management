@@ -13,10 +13,7 @@ export const Search: React.FC<SearchProps> = ({}) => {
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("here");
     if (!value) return;
-    console.log("here");
-
     const url = qs.stringifyUrl(
       {
         url: "/search",
@@ -24,7 +21,6 @@ export const Search: React.FC<SearchProps> = ({}) => {
       },
       { skipEmptyString: true },
     );
-
     router.push(url);
   };
 

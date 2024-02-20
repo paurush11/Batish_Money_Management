@@ -16,16 +16,13 @@ interface SectionPageProps {
   data: any;
   userData: IUser;
   UserExpensesData: IExpenseData[];
-  err: number;
 }
 
 const SectionPage: React.FC<SectionPageProps> = ({
   data,
   userData,
   UserExpensesData,
-  err,
 }) => {
-  console.log(err);
   return (
     <div className="flex flex-col ">
       <Navbar />
@@ -40,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
   const authToken = cookies.authToken;
   const userName = cookies.userName;
-  let err = 0;
   let UserExpensesData: IExpenseData[] = [];
   let userData: IUser = {
     id: 0,
@@ -69,7 +65,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         data: data,
         userData,
         UserExpensesData,
-        err,
       },
     };
   } catch (e: any) {
@@ -77,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     // Redirect to login or an error page if an error occurs
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

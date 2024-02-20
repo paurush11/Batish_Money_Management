@@ -35,7 +35,7 @@ const formSchema = z.object({
     }),
   // .regex(passwordRegex),
 });
-export const LoginForm: React.FC<TLoginFormProps> = ({ }) => {
+export const LoginForm: React.FC<TLoginFormProps> = ({}) => {
   const router = useRouter();
   const context = useContext(AuthContext);
   const { toast } = useToast();
@@ -114,13 +114,13 @@ export const LoginForm: React.FC<TLoginFormProps> = ({ }) => {
         router.replace("/register");
         return;
       }
-     
+
       toast({
         title: "New User Added",
         variant: "primary",
         description: `New User Named ${values.username} has been added Successfully`,
       });
-     
+
       router.replace("/home");
       return;
     } catch (e: any) {

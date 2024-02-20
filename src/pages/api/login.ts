@@ -35,7 +35,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }),
       ]);
       // Return user data or a success indicator to the client
-      return res.status(200).json({ user: user.data, token: response.data.token }); // Adjust according to your response structure
+      return res
+        .status(200)
+        .json({ user: user.data, token: response.data.token }); // Adjust according to your response structure
     } else {
       // Handle login failure
       return res.status(401).json({ error: "Authentication failed" });

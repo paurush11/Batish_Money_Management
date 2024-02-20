@@ -17,9 +17,23 @@ export interface IExpenseUserSplits {
   splitAmount: number;
 }
 export type TFrequency = "monthly" | "quarterly" | "annually";
-export type TPaymentMethod = "credit_card" | "bank_transfer" | "cash" | "other";
+export type TPaymentMethod =
+  | "credit_card"
+  | "bank_transfer"
+  | "cash"
+  | "other"
+  | "debit_card";
 export type TPaymentStatus = "paid" | "unpaid" | "partial";
-export type TCategory = "utilities" | "rent" | "insurance" | "other";
+export type TCategory =
+  | "utilities"
+  | "rent"
+  | "insurance"
+  | "other"
+  | "food"
+  | "wellness"
+  | "housing"
+  | "entertainment"
+  | "transport";
 export type TRole = "USER" | "ADMIN";
 export interface IExpenseData {
   id: number;
@@ -41,20 +55,21 @@ export interface ICatData {
   name: string;
   amount: number;
 }
+export interface searchProps {
+  expenses: IExpenseData[]
+}
 
 export interface IActivity {
-  parsedData: IParsedData[];
+  parsedData: IExpenseData[];
   catData: ICatData[];
 }
 
 export interface IBarChartProps {
-  parsedData: IParsedData[];
+  parsedData: IExpenseData[];
 }
 
 export type ITopSummary = IActivity;
-export type IHomeData = IActivity & {
-  userData: IUser;
-};
+export type IHomeData = IActivity & {};
 
 export interface IUser {
   id: number;

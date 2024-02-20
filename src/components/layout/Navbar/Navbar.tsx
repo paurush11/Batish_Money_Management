@@ -5,20 +5,20 @@ import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
 import Router from "next/router";
 import { AuthContext } from "@/lib/AuthProvider";
-export const Navbar: React.FC = ({ }) => {
-  const { user, logout } = useContext(AuthContext)
+export const Navbar: React.FC = ({}) => {
+  const { user, logout } = useContext(AuthContext);
   const router = Router;
   const [name, setName] = useState("");
   const handleLogout = async () => {
     await logout();
-    router.replace("/login")
-  }
+    router.replace("/login");
+  };
   useEffect(() => {
     if (user) {
       setName(
         ", " +
-        user?.firstName.charAt(0).toUpperCase() +
-        user?.firstName.substring(1),
+          user?.firstName.charAt(0).toUpperCase() +
+          user?.firstName.substring(1),
       );
     }
   }, [user]);

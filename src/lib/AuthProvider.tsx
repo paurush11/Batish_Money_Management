@@ -50,7 +50,6 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
       const response = await axios.post("/api/login", body);
       // Post to your API route
       if (response.data) {
-
         // Assuming the API returns user data on successful login
         setUser(response.data.user);
         setToken(response.data.token);
@@ -60,7 +59,6 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
         return noUserError;
       }
     } catch (error) {
-
       console.error("Login error:", error);
       // Handle error (e.g., display an error message)
     }
