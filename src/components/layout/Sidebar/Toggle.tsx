@@ -3,8 +3,10 @@ import { useSidebar } from "@/store/use-sidebar";
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react";
 import React from "react";
 import { Hint } from "./Hint";
-
-export const Toggle: React.FC = ({}) => {
+type ToggleProps = {
+  name: string;
+};
+export const Toggle: React.FC<ToggleProps> = ({ name }: ToggleProps) => {
   const { collapsed, onExpand, onCollapse } = useSidebar((state) => state);
 
   const label = collapsed ? "Expand" : "Collapse";
@@ -21,7 +23,9 @@ export const Toggle: React.FC = ({}) => {
       )}
       {!collapsed && (
         <div className="mb-2 flex w-full items-center p-3 pl-6">
-          <p className="font-semibold text-primary">Paurush</p>
+          <p className=" font-roboto-slab text-2xl font-semibold text-primary">
+            {name}
+          </p>
           <Hint label={label} side="right" asChild>
             <Button
               onClick={onCollapse}

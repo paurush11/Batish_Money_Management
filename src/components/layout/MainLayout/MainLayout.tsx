@@ -1,4 +1,4 @@
-import { ICatData, IExpenseData, TSection } from "@/lib/Interfaces";
+import { ICatData, IExpenseData, IUser, TSection } from "@/lib/Interfaces";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/store/use-sidebar";
 import { useRouter } from "next/router";
@@ -7,12 +7,14 @@ import { AddBills } from "./AddBills/AddBills";
 import { Goals } from "./Goals";
 import { MonthlySpending } from "./MonthlySpending";
 import { Home } from "./Home/Home";
+import { Profile } from "./Profile/Profile";
 
 interface MainLayout {
   UserExpensesData: IExpenseData[];
+  userData: IUser;
 }
 
-export const MainLayout: React.FC<MainLayout> = ({ UserExpensesData }) => {
+export const MainLayout: React.FC<MainLayout> = ({ UserExpensesData, userData }) => {
   const { collapsed } = useSidebar((state) => state);
   const router = useRouter();
   const { section } = router.query;
@@ -31,6 +33,7 @@ export const MainLayout: React.FC<MainLayout> = ({ UserExpensesData }) => {
       amount: amt,
     });
   });
+  console.log(router.query)
   catData.sort((a, b) => b.amount - a.amount);
   return (
     <div className={cn("ml-72 flex flex-col", collapsed && "ml-16")}>
@@ -42,6 +45,16 @@ export const MainLayout: React.FC<MainLayout> = ({ UserExpensesData }) => {
       >
         {UserExpensesData && (
           <Home parsedData={UserExpensesData} catData={catData} />
+        )}
+      </div>
+      <div
+        className={cn(
+          "hidden",
+          (section as String as TSection) === "profile" && "block",
+        )}
+      >
+        {UserExpensesData && (
+          <Profile userData={userData} />
         )}
       </div>
       <div

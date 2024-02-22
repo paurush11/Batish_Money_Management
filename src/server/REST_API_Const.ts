@@ -12,7 +12,7 @@ const DELETE_EXPENSE_BY_OR_ID = "http://localhost:8080/expenses/"; // + ID
 const GET_ALL_USER_EXPENSES = "http://localhost:8080/expenses/user"; // + ID
 const DELETE_ALL_USER_EXPENSES = "http://localhost:8080/expenses/user"; // + ID
 const DELETE_USER = "http://localhost:8080/users"; // + ID
-const GET_SEARCH_RESULTS = "http://localhost:8080/expenses/search/"
+const GET_SEARCH_RESULTS = "http://localhost:8080/expenses/search/";
 export {
   USERS,
   GET_ALL_EXPENSES,
@@ -28,5 +28,5 @@ export {
   GET_ALL_USER_EXPENSES,
   DELETE_ALL_USER_EXPENSES,
   DELETE_USER,
-  GET_SEARCH_RESULTS
+  GET_SEARCH_RESULTS,
 };

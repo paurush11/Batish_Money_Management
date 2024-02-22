@@ -11,6 +11,7 @@ import {
   GET_ALL_USER_EXPENSES,
   GET_USER_BY_USERNAME,
 } from "@/server/REST_API_Const";
+import { getUser, getUserExpenses } from "@/lib/utils";
 
 interface SectionPageProps {
   data: any;
@@ -26,8 +27,8 @@ const SectionPage: React.FC<SectionPageProps> = ({
   return (
     <div className="flex flex-col ">
       <Navbar />
-      <Sidebar />
-      <MainLayout UserExpensesData={UserExpensesData} />
+      <Sidebar userData={userData} />
+      <MainLayout UserExpensesData={UserExpensesData} userData={userData} />
     </div>
   );
 };
@@ -80,19 +81,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default SectionPage;
-
-const getUser = async (userName: string, authToken: string) => {
-  return await axios.get(GET_USER_BY_USERNAME + `/${userName}`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
-};
-
-const getUserExpenses = async (id: number, authToken: string) => {
-  return await axios.get(GET_ALL_USER_EXPENSES + `/${id}`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
-};

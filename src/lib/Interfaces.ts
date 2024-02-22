@@ -56,7 +56,9 @@ export interface ICatData {
   amount: number;
 }
 export interface searchProps {
-  expenses: IExpenseData[]
+  userData: IUser;
+  searchedExpenses: IExpenseData[];
+  AllUserExpenses: IExpenseData[];
 }
 
 export interface IActivity {
@@ -99,8 +101,12 @@ export interface IAuthContextType {
 export type TcustomError = {
   message: String;
 };
-export type TSection = "home" | "add-bills" | "goals" | "monthly-spending";
+export type TSection = "home" | "add-bills" | "goals" | "monthly-spending" | "profile";
 
 export const passwordRegex = new RegExp("");
 export const phoneNumberFirstRegex = new RegExp("");
 export const phoneNumberLastRegex = new RegExp("");
+
+export interface SidebarProps {
+  userData: IUser;
+}

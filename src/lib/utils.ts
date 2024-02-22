@@ -1,8 +1,17 @@
-import { GET_SEARCH_RESULTS } from "@/server/REST_API_Const";
+import {
+  GET_ALL_USER_EXPENSES,
+  GET_SEARCH_RESULTS,
+  GET_USER_BY_USERNAME,
+} from "@/server/REST_API_Const";
 import axios from "axios";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { TFrequency, TPaymentMethod, TPaymentStatus, TCategory } from "./Interfaces";
+import {
+  TFrequency,
+  TPaymentMethod,
+  TPaymentStatus,
+  TCategory,
+} from "./Interfaces";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,8 +27,10 @@ const getExpenses = async (URL: string, authToken: string) => {
 
 const isAmount = (value: string): Boolean => {
   const num = parseFloat(value);
-  return !isNaN(num) && !isNaN(parseFloat(value)) && value.trim() === num.toString();
-}
+  return (
+    !isNaN(num) && !isNaN(parseFloat(value)) && value.trim() === num.toString()
+  );
+};
 const isDate = (value: string): Boolean => {
   const regex = /^(\d{4})-(\d{2})-(\d{2})$/;
   const matches = value.match(regex);
@@ -34,8 +45,12 @@ const isDate = (value: string): Boolean => {
   if (day < 1 || day > 31) return false;
   // Advanced check for days in a month considering leap years
   const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
-}
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+};
 function isFrequency(value: string): value is TFrequency {
   return ["monthly", "quarterly", "annually"].includes(value);
 }
@@ -46,8 +61,33 @@ function isPaymentStatus(value: string): value is TPaymentStatus {
   return ["paid", "unpaid", "partial"].includes(value);
 }
 function isCategory(value: string): value is TCategory {
-  return ["utilities", "rent", "insurance", "food", "wellness", "housing", "entertainment", "transport"].includes(value);
+  return [
+    "utilities",
+    "rent",
+    "insurance",
+    "food",
+    "wellness",
+    "housing",
+    "entertainment",
+    "transport",
+  ].includes(value);
 }
+
+const getUser = async (userName: string, authToken: string) => {
+  return await axios.get(GET_USER_BY_USERNAME + `/${userName}`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+};
+
+const getUserExpenses = async (id: number, authToken: string) => {
+  return await axios.get(GET_ALL_USER_EXPENSES + `/${id}`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+};
 
 export {
   isAmount,
@@ -56,7 +96,7 @@ export {
   isPaymentMethod,
   isPaymentStatus,
   isCategory,
-  getExpenses
-
-
-}
+  getExpenses,
+  getUser,
+  getUserExpenses,
+};

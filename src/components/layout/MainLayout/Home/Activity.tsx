@@ -13,7 +13,7 @@ import { IActivity } from "../../../../lib/Interfaces";
 export const Activity: React.FC<IActivity> = ({ parsedData, catData }) => {
   return (
     <div className="flex h-[85vh] w-[56vw] flex-1 flex-col  space-y-3">
-      <div className="text-3xl">Money Insight</div>
+      <div className=" font-poppins text-3xl">Money Insight</div>
       <div className="flex h-full flex-col pt-8">
         <div className="mb-3 flex space-x-4">
           {catData?.map((d) => (
@@ -21,7 +21,7 @@ export const Activity: React.FC<IActivity> = ({ parsedData, catData }) => {
               key={d.name}
               className="h-30 flex w-60 flex-col  rounded-lg  border-2 p-2 hover:bg-slate-600 "
             >
-              <div className="flex pl-3 text-lg font-bold text-primary">
+              <div className="flex pl-3 font-poppins text-lg font-semibold text-primary">
                 {d.name[0]?.toUpperCase() +
                   d.name.substring(1).toLocaleLowerCase()}
               </div>
